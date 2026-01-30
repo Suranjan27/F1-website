@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/2418/2418779.png">
-    <title>Formula one world championship</title>
+    <title>Formula 1 World Championship</title>
     <!-- Modern Font Stack -->
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -17,7 +17,6 @@
             --f1-dark-grey: #15151e;
             --f1-carbon: #0a0a0f;
             --accent-glow: rgba(225, 6, 0, 0.4);
-            /* Refined "Buttery" Transition Timing */
             --transition-smooth: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
             --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
@@ -27,6 +26,7 @@
             padding: 0; 
             box-sizing: border-box; 
             font-family: 'Titillium Web', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body { 
@@ -49,10 +49,10 @@
             transition: opacity 1s ease, visibility 1s;
         }
         #loading-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-        .loader-viz { position: relative; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; }
+        .loader-viz { position: relative; width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; }
         .loader-ring { position: absolute; width: 100%; height: 100%; border: 2px solid rgba(255,255,255,0.05); border-top: 2px solid var(--f1-red); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .loader-logo { width: 80px; filter: drop-shadow(0 0 10px var(--f1-red)); }
+        .loader-logo { width: 50px; filter: drop-shadow(0 0 10px var(--f1-red)); }
 
         /* --- NAVIGATION --- */
         header {
@@ -60,42 +60,50 @@
             background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(15px);
             display: flex; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .nav-container { width: 100%; max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 40px; }
-        .logo-box img { height: 24px; cursor: pointer; transition: var(--transition); }
-        .header-ribbon { flex: 1; margin: 0 40px; height: 32px; background: rgba(255,255,255,0.03); border-radius: 4px; overflow: hidden; display: flex; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
-        .ribbon-tag { background: var(--f1-red); color: white; font-weight: 900; font-size: 0.6rem; padding: 0 12px; height: 100%; display: flex; align-items: center; letter-spacing: 1px; font-style: italic; }
+        .nav-container { width: 100%; max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .logo-box img { height: 20px; cursor: pointer; transition: var(--transition); }
+        
+        .header-ribbon { 
+            flex: 1; margin: 0 15px; height: 32px; 
+            background: rgba(255,255,255,0.03); border-radius: 4px; 
+            overflow: hidden; display: flex; align-items: center; 
+            border: 1px solid rgba(255,255,255,0.05); 
+        }
+        @media (max-width: 600px) { .header-ribbon { display: none; } } /* Hide ticker on small Androids */
+
+        .ribbon-tag { background: var(--f1-red); color: white; font-weight: 900; font-size: 0.55rem; padding: 0 10px; height: 100%; display: flex; align-items: center; letter-spacing: 1px; font-style: italic; }
         .ticker-wrap { flex: 1; overflow: hidden; }
         .ticker-move { display: flex; white-space: nowrap; animation: ticker 40s linear infinite; }
-        .ticker-move span { padding: 0 30px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; opacity: 0.6; letter-spacing: 1px; }
+        .ticker-move span { padding: 0 20px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; opacity: 0.6; letter-spacing: 1px; }
         @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        .menu-btn { width: 30px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; z-index: 3100; }
+        .menu-btn { width: 30px; height: 18px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; z-index: 3100; }
         .menu-btn span { width: 100%; height: 2px; background: white; transition: var(--transition); }
-        .menu-open .menu-btn span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+        .menu-open .menu-btn span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
         .menu-open .menu-btn span:nth-child(2) { opacity: 0; }
-        .menu-open .menu-btn span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+        .menu-open .menu-btn span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-        .side-nav { position: fixed; top: 0; right: 0; width: 400px; height: 100vh; background: #0b0b12; z-index: 2500; transform: translateX(100%); transition: var(--transition); padding: 120px 60px; display: flex; flex-direction: column; gap: 20px; border-left: 1px solid rgba(255,255,255,0.05); }
+        .side-nav { position: fixed; top: 0; right: 0; width: min(400px, 85vw); height: 100vh; background: #0b0b12; z-index: 2500; transform: translateX(100%); transition: var(--transition); padding: 120px 40px; display: flex; flex-direction: column; gap: 20px; border-left: 1px solid rgba(255,255,255,0.05); }
         .menu-open .side-nav { transform: translateX(0); box-shadow: -20px 0 60px rgba(0,0,0,0.8); }
-        .side-nav a { font-size: 1.8rem; font-weight: 900; text-transform: uppercase; text-decoration: none; color: white; font-style: italic; transition: var(--transition); letter-spacing: -1px; }
-        .side-nav a:hover { color: var(--f1-red); padding-left: 15px; }
+        .side-nav a { font-size: 1.5rem; font-weight: 900; text-transform: uppercase; text-decoration: none; color: white; font-style: italic; transition: var(--transition); letter-spacing: -1px; }
+        .side-nav a:hover { color: var(--f1-red); padding-left: 10px; }
         .menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 2400; opacity: 0; visibility: hidden; transition: 0.4s; }
         .menu-open .menu-overlay { opacity: 1; visibility: visible; }
 
         /* --- PAGES --- */
-        .page { display: none; opacity: 0; transform: translateY(20px); transition: 0.5s ease-out; }
+        .page { display: none; opacity: 0; transform: translateY(15px); transition: 0.5s ease-out; }
         .page.active { display: block; opacity: 1; transform: translateY(0); }
 
         /* --- HERO --- */
         .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; padding-top: 70px; }
-        .hero-video { position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; object-fit: cover; transform: translate(-50%, -50%); z-index: -1; filter: brightness(0.4); pointer-events: none; }
-        .hero-content { text-align: center; position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; justify-content: center; }
-        .f1-tag { display: inline-block; background: var(--f1-red); padding: 4px 12px; font-weight: 900; font-style: italic; font-size: 0.8rem; margin-bottom: 20px; align-self: center; }
-        .hero h1 { font-size: clamp(4rem, 12vw, 10rem); font-weight: 900; line-height: 0.85; text-transform: uppercase; font-style: italic; letter-spacing: -4px; }
+        .hero-video { position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; object-fit: cover; transform: translate(-50%, -50%); z-index: -1; filter: brightness(0.45); pointer-events: none; }
+        .hero-content { text-align: center; position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 20px; }
+        .f1-tag { display: inline-block; background: var(--f1-red); padding: 4px 12px; font-weight: 900; font-style: italic; font-size: 0.75rem; margin-bottom: 20px; align-self: center; }
+        .hero h1 { font-size: clamp(3rem, 10vw, 9rem); font-weight: 900; line-height: 0.85; text-transform: uppercase; font-style: italic; letter-spacing: -3px; }
 
         /* --- DECK SYSTEM --- */
-        .deck-container { padding: 180px 5% 400px; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
-        .deck-title { font-size: 3rem; font-weight: 900; font-style: italic; text-transform: uppercase; margin-bottom: 250px; border-left: 8px solid var(--f1-red); padding-left: 25px; }
+        .deck-container { padding: 120px 20px 400px; min-height: 100vh; display: flex; flex-direction: column; align-items: center; width: 100%; }
+        .deck-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; font-style: italic; text-transform: uppercase; margin-bottom: 100px; border-left: 8px solid var(--f1-red); padding-left: 20px; align-self: center; }
         
         .cards-wrapper { 
             position: relative; 
@@ -104,186 +112,97 @@
             perspective: 1500px; 
             display: flex; 
             justify-content: center; 
-            transition: height 0.6s cubic-bezier(0.22, 1, 0.36, 1); 
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1); 
         }
-        .cards-wrapper.open { height: 800px; }
+
+        /* Responsive Grid for mobile Android/iOS */
+        @media (max-width: 768px) {
+            .deck-title { margin-bottom: 40px; }
+            .cards-wrapper { width: 100%; height: auto !important; display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; perspective: none; }
+            .card { position: relative !important; transform: none !important; opacity: 1 !important; margin: 0 auto !important; }
+            .card-master { grid-column: 1 / -1; height: 80px !important; margin-bottom: 20px !important; order: -1; }
+            .cards-wrapper.open { height: auto; }
+        }
+
+        @media (min-width: 769px) {
+            .deck-title { margin-bottom: 250px; }
+            .cards-wrapper.open { height: 800px; }
+            /* Spread Logic for Desktop */
+            .cards-wrapper.open .card:nth-child(1) { transform: translate3d(-435px, -210px, 0) scale(0.9); }
+            .cards-wrapper.open .card:nth-child(2) { transform: translate3d(-290px, -210px, 0) scale(0.9); }
+            .cards-wrapper.open .card:nth-child(3) { transform: translate3d(-145px, -210px, 0) scale(0.9); }
+            .cards-wrapper.open .card:nth-child(4) { transform: translate3d(0px, -210px, 0) scale(0.9); }
+            .cards-wrapper.open .card:nth-child(5) { transform: translate3d(145px, -210px, 0) scale(0.9); }
+            .cards-wrapper.open .card:nth-child(6) { transform: translate3d(290px, -210px, 0) scale(0.9); }
+            .cards-wrapper.open .card:nth-child(7) { transform: translate3d(435px, -210px, 0) scale(0.9); }
+            .cards-wrapper.open .card:nth-child(8) { transform: translate3d(-435px, 0px, 0) scale(0.9); }
+            .cards-wrapper.open .card:nth-child(9) { transform: translate3d(-290px, 0px, 0) scale(0.9); }
+            .cards-wrapper.open .card:nth-child(10) { transform: translate3d(-145px, 0px, 0) scale(0.9); }
+            .cards-wrapper.open .card:nth-child(11) { transform: translate3d(145px, 0px, 0) scale(0.9); }
+            .cards-wrapper.open .card:nth-child(12) { transform: translate3d(290px, 0px, 0) scale(0.9); }
+            .cards-wrapper.open .card:nth-child(13) { transform: translate3d(435px, 0px, 0) scale(0.9); }
+            .cards-wrapper.open .card:nth-child(14) { transform: translate3d(-435px, 210px, 0) scale(0.9); }
+            .cards-wrapper.open .card:nth-child(15) { transform: translate3d(-290px, 210px, 0) scale(0.9); }
+            .cards-wrapper.open .card:nth-child(16) { transform: translate3d(-145px, 210px, 0) scale(0.9); }
+            .cards-wrapper.open .card:nth-child(17) { transform: translate3d(0px, 210px, 0) scale(0.9); }
+            .cards-wrapper.open .card:nth-child(18) { transform: translate3d(145px, 210px, 0) scale(0.9); }
+            .cards-wrapper.open .card:nth-child(19) { transform: translate3d(290px, 210px, 0) scale(0.9); }
+            .cards-wrapper.open .card:nth-child(20) { transform: translate3d(435px, 210px, 0) scale(0.9); }
+        }
         
         .card { 
-            position: absolute; 
-            width: 130px; 
-            height: 190px; 
-            background: var(--f1-carbon); 
-            border: 1px solid rgba(255,255,255,0.1); 
-            border-radius: 6px; 
-            overflow: hidden; 
-            cursor: pointer; 
-            transition: 
-                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), 
-                margin-top 0.5s cubic-bezier(0.22, 1, 0.36, 1), 
-                opacity 0.4s ease, 
-                filter 0.4s ease, 
-                border-color 0.4s ease, 
-                box-shadow 0.4s ease;
-            z-index: 1; 
-            transform-origin: center center;
-            will-change: transform, margin-top;
+            position: absolute; width: 130px; height: 190px; background: var(--f1-carbon); 
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; overflow: hidden; cursor: pointer; 
+            transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), margin-top 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease, filter 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+            z-index: 1; transform-origin: center center;
         }
-
-        .card:hover { z-index: 1000 !important; filter: grayscale(0) brightness(1) !important; border-color: var(--f1-red); box-shadow: 0 0 35px var(--f1-red); margin-top: -35px; }
-        
-        /* Spread Logic */
-        .cards-wrapper.open .card:nth-child(1) { transform: translate3d(-435px, -210px, 0) scale(0.9); }
-        .cards-wrapper.open .card:nth-child(2) { transform: translate3d(-290px, -210px, 0) scale(0.9); }
-        .cards-wrapper.open .card:nth-child(3) { transform: translate3d(-145px, -210px, 0) scale(0.9); }
-        .cards-wrapper.open .card:nth-child(4) { transform: translate3d(0px, -210px, 0) scale(0.9); }
-        .cards-wrapper.open .card:nth-child(5) { transform: translate3d(145px, -210px, 0) scale(0.9); }
-        .cards-wrapper.open .card:nth-child(6) { transform: translate3d(290px, -210px, 0) scale(0.9); }
-        .cards-wrapper.open .card:nth-child(7) { transform: translate3d(435px, -210px, 0) scale(0.9); }
-        .cards-wrapper.open .card:nth-child(8) { transform: translate3d(-435px, 0px, 0) scale(0.9); }
-        .cards-wrapper.open .card:nth-child(9) { transform: translate3d(-290px, 0px, 0) scale(0.9); }
-        .cards-wrapper.open .card:nth-child(10) { transform: translate3d(-145px, 0px, 0) scale(0.9); }
-        .cards-wrapper.open .card:nth-child(11) { transform: translate3d(145px, 0px, 0) scale(0.9); }
-        .cards-wrapper.open .card:nth-child(12) { transform: translate3d(290px, 0px, 0) scale(0.9); }
-        .cards-wrapper.open .card:nth-child(13) { transform: translate3d(435px, 0px, 0) scale(0.9); }
-        .cards-wrapper.open .card:nth-child(14) { transform: translate3d(-435px, 210px, 0) scale(0.9); }
-        .cards-wrapper.open .card:nth-child(15) { transform: translate3d(-290px, 210px, 0) scale(0.9); }
-        .cards-wrapper.open .card:nth-child(16) { transform: translate3d(-145px, 210px, 0) scale(0.9); }
-        .cards-wrapper.open .card:nth-child(17) { transform: translate3d(0px, 210px, 0) scale(0.9); }
-        .cards-wrapper.open .card:nth-child(18) { transform: translate3d(145px, 210px, 0) scale(0.9); }
-        .cards-wrapper.open .card:nth-child(19) { transform: translate3d(290px, 210px, 0) scale(0.9); }
-        .cards-wrapper.open .card:nth-child(20) { transform: translate3d(435px, 210px, 0) scale(0.9); }
+        .card:hover { z-index: 1000 !important; filter: grayscale(0) brightness(1) !important; border-color: var(--f1-red); box-shadow: 0 0 35px var(--f1-red); margin-top: -15px; }
 
         .card-master { z-index: 100 !important; background: #000; border: 2px solid var(--f1-red); display: flex; align-items: center; justify-content: center; }
-        .card-master img { width: 60%; filter: drop-shadow(0 0 10px var(--f1-red)); }
-        .card-master:hover { margin-top: 0 !important; transform: scale(1.05) !important; }
+        .card-master img { width: min(60%, 40px); filter: drop-shadow(0 0 10px var(--f1-red)); }
         
-        .card-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(0.3); transition: 0.4s; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(0.4); transition: 0.4s; }
         .card:hover .card-img { filter: grayscale(0) brightness(1); }
         
         .card-info { position: absolute; bottom: 0; width: 100%; padding: 10px; background: linear-gradient(to top, black, transparent); opacity: 0; transition: 0.3s; }
         .card:hover .card-info { opacity: 1; }
         .card-info h4 { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; font-style: italic; }
-        .card-no { position: absolute; top: 5px; right: 10px; font-weight: 900; font-size: 1.2rem; opacity: 0.1; font-style: italic; transition: opacity 0.3s; }
-        .card:hover .card-no { opacity: 0.4; }
+        .card-no { position: absolute; top: 5px; right: 10px; font-weight: 900; font-size: 1.2rem; opacity: 0.1; font-style: italic; }
 
         /* --- PROFILE VIEW --- */
         .profile { min-height: 100vh; padding-top: 70px; background: #050505; }
-        
-        /* Set section to Cinematic 1920x1080 Aspect Ratio */
         .profile-hero { 
-            width: 100%;
-            aspect-ratio: 16 / 9; /* 1920 x 1080 ratio */
-            max-height: 85vh;
-            display: flex; 
-            align-items: flex-end; 
-            padding: 0 10%; 
-            position: relative; 
-            overflow: hidden; 
-            background: #0a0a0f; 
+            width: 100%; aspect-ratio: 16 / 9; max-height: 85vh;
+            display: flex; align-items: flex-end; padding: 0 8%; position: relative; overflow: hidden; background: #0a0a0f; 
         }
+        @media (max-width: 768px) { .profile-hero { aspect-ratio: 1 / 1; height: auto; min-height: 400px; padding-bottom: 20px; } }
+
+        .p-number { position: absolute; right: -20px; bottom: -80px; font-size: clamp(10rem, 30vw, 26rem); font-weight: 900; font-style: italic; opacity: 0.08; pointer-events: none; z-index: 1; }
+        .p-content { position: relative; z-index: 10; padding-bottom: 40px; pointer-events: none; }
+        .p-content h2 { font-size: clamp(2.5rem, 8vw, 7.5rem); font-weight: 900; font-style: italic; text-transform: uppercase; letter-spacing: -3px; line-height: 0.85; text-shadow: 0 10px 30px rgba(0,0,0,0.8); }
         
-        .p-number { position: absolute; right: -20px; bottom: -80px; font-size: 26rem; font-weight: 900; font-style: italic; opacity: 0.1; pointer-events: none; z-index: 1; }
-        
-        .p-content { 
-            position: relative; 
-            z-index: 10; 
-            padding-bottom: 80px; 
-            pointer-events: none;
-        }
-        
-        .p-content h2 { 
-            font-size: clamp(3.5rem, 10vw, 8rem); 
-            font-weight: 900; 
-            font-style: italic; 
-            text-transform: uppercase; 
-            letter-spacing: -5px; 
-            line-height: 0.8; 
-            text-shadow: 0 10px 40px rgba(0,0,0,0.8);
-            background: linear-gradient(to bottom, #fff 40%, #888 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .p-portrait { position: absolute; right: 10%; bottom: 0; height: 85%; z-index: 5; filter: drop-shadow(0 -20px 50px rgba(0,0,0,0.7)); transition: var(--transition-smooth); }
+        .p-portrait.car-mode { width: 100%; height: 100%; object-fit: cover; top: 0; left: 0; z-index: 2; opacity: 1; }
 
-        .p-content p {
-            font-weight: 900;
-            font-style: italic;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 10px;
-        }
-        
-        /* ADJUSTED: Driver picture made slightly smaller and repositioned to fit better */
-        .p-portrait { 
-            position: absolute; 
-            right: 12%; 
-            bottom: 0; 
-            height: 420px; /* Reduced height from 480px to fit section better */
-            z-index: 5; 
-            object-fit: cover;
-            filter: drop-shadow(0 -20px 50px rgba(0,0,0,0.7)); 
-            transition: var(--transition-smooth); 
-        }
-        
-        /* High-Impact Car Display Mode - FILLS perfectly */
-        .p-portrait.car-mode {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Fills the 16:9 area */
-            z-index: 2; /* Behind text but visible */
-            opacity: 1;
-        }
+        .p-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); max-width: 1400px; margin: 0 auto; background: var(--f1-carbon); border-top: 1px solid rgba(255,255,255,0.05); }
+        .stat-box { padding: clamp(20px, 5vw, 60px); border-right: 1px solid rgba(255,255,255,0.05); }
+        .stat-box h5 { color: var(--f1-red); font-size: 1.2rem; text-transform: uppercase; font-style: italic; margin-bottom: 20px; font-weight: 900; }
+        .stat-row { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .stat-label { font-size: 0.75rem; opacity: 0.6; text-transform: uppercase; font-weight: 900; letter-spacing: 1px; }
+        .stat-value { font-weight: 900; font-style: italic; font-size: 1.5rem; color: #fff; }
 
-        .p-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); max-width: 1400px; margin: 0 auto; background: var(--f1-carbon); border-top: 1px solid rgba(255,255,255,0.05); }
-        .stat-box { padding: 60px 80px; border-right: 1px solid rgba(255,255,255,0.05); }
-        .stat-box h5 { color: var(--f1-red); font-size: 1.5rem; text-transform: uppercase; font-style: italic; margin-bottom: 30px; font-weight: 900; }
-        .stat-row { display: flex; justify-content: space-between; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .stat-label { font-size: 0.85rem; opacity: 0.6; text-transform: uppercase; font-weight: 900; letter-spacing: 2px; }
-        .stat-value { font-weight: 900; font-style: italic; font-size: 2rem; color: #fff; }
+        .back-btn-container { padding: 40px 20px; text-align: center; width: 100%; }
+        .standard-back-btn { background: none; border: 1px solid rgba(255,255,255,0.2); color: white; padding: 12px 30px; cursor: pointer; text-transform: uppercase; font-weight: 700; font-size: 0.75rem; transition: var(--transition); border-radius: 4px; }
+        .standard-back-btn:hover { border-color: var(--f1-red); color: var(--f1-red); background: rgba(225, 6, 0, 0.05); }
 
-        .back-btn-container {
-            padding: 40px;
-            text-align: center;
-            width: 100%;
-        }
+        .winners-scroll-wrapper { max-height: 500px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.05); background: #111; width: 100%; }
+        .winners-scroll-wrapper table { min-width: 500px; }
 
-        .standard-back-btn {
-            background: none; 
-            border: 1px solid rgba(255,255,255,0.2); 
-            color: white; 
-            padding: 12px 30px; 
-            cursor: pointer; 
-            text-transform: uppercase; 
-            font-weight: 700; 
-            font-size: 0.7rem;
-            transition: var(--transition);
-        }
+        footer { padding: 40px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.65rem; text-transform: uppercase; opacity: 0.4; letter-spacing: 2px; background: rgba(0,0,0,0.5); width: 100%; }
 
-        .standard-back-btn:hover {
-            border-color: var(--f1-red);
-            color: var(--f1-red);
-        }
-
-        /* Scrollable table container for Winner List */
-        .winners-scroll-wrapper {
-            max-height: 600px;
-            overflow-y: auto;
-            border: 1px solid rgba(255,255,255,0.05);
-            background: #111;
-        }
-
-        footer { padding: 60px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.7rem; text-transform: uppercase; opacity: 0.4; letter-spacing: 2px; background: rgba(0,0,0,0.5); width: 100%; }
-
-        @media (max-width: 1200px) {
-            .cards-wrapper { width: 100%; height: auto; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-            .card { position: relative; transform: none !important; width: 130px; height: 190px; }
-            .cards-wrapper.open { height: auto; }
-            .card:hover { margin-top: -15px; }
-            .p-portrait.car-mode { width: 100%; height: 100%; }
-            .p-content h2 { font-size: 4.5rem; letter-spacing: -2px; }
-            .profile-hero { aspect-ratio: auto; height: 500px; }
+        @media (max-width: 768px) {
+            .p-portrait { height: 60%; right: 0; }
+            .p-content { padding-bottom: 20px; }
         }
     </style>
 </head>
@@ -305,7 +224,7 @@
             </div>
 
             <div class="header-ribbon">
-                <div class="ribbon-tag">OFFICIAL PARTNERS:</div>
+                <div class="ribbon-tag">PARTNERS:</div>
                 <div class="ticker-wrap">
                     <div class="ticker-move" id="partner-ticker"></div>
                 </div>
@@ -320,10 +239,10 @@
     <!-- SIDE NAV -->
     <div class="menu-overlay" onclick="toggleMenu()"></div>
     <nav class="side-nav">
-        <a href="#" onclick="nav('home')">Home</a>
+        <a href="#" onclick="nav('home')">Dashboard</a>
         <a href="#" onclick="nav('drivers')">Drivers</a>
         <a href="#" onclick="nav('cars')">Cars</a>
-        <a href="#" onclick="nav('history')">Winner List</a>
+        <a href="#" onclick="nav('history')">History</a>
     </nav>
 
     <div id="app">
@@ -348,9 +267,6 @@
             <div class="deck-container">
                 <h2 class="deck-title">The Grid</h2>
                 <div class="cards-wrapper" id="driver-deck"></div>
-                <p style="margin-top: 80px; font-size: 0.7rem; opacity: 0.5; text-transform: uppercase; letter-spacing: 2px;">
-                    Click F1 handle to reveal full grid
-                </p>
                 <div class="back-btn-container">
                     <button class="standard-back-btn" onclick="nav('home')">Back to Dashboard</button>
                 </div>
@@ -362,9 +278,6 @@
             <div class="deck-container">
                 <h2 class="deck-title">Challengers</h2>
                 <div class="cards-wrapper" id="car-deck"></div>
-                <p style="margin-top: 80px; font-size: 0.7rem; opacity: 0.5; text-transform: uppercase; letter-spacing: 2px;">
-                    Click F1 handle to reveal car technicals
-                </p>
                 <div class="back-btn-container">
                     <button class="standard-back-btn" onclick="nav('home')">Back to Dashboard</button>
                 </div>
@@ -392,8 +305,8 @@
         <!-- WINNERS HISTORY -->
         <section id="history" class="page">
             <div class="deck-container">
-                <h2 class="deck-title">Hall of Fame</h2>
-                <div style="width: 100%; max-width: 1200px; padding: 0;">
+                <h2 class="deck-title">Champions</h2>
+                <div style="width: 100%; max-width: 1000px; padding: 0 10px;">
                     <div class="winners-scroll-wrapper">
                         <table style="width: 100%; border-collapse: collapse;">
                             <thead style="position: sticky; top: 0; background: #222; z-index: 5;">
@@ -404,9 +317,7 @@
                                     <th style="padding: 15px; text-align: left;">Pts</th>
                                 </tr>
                             </thead>
-                            <tbody id="winners-table-body">
-                                <!-- Populated via JS -->
-                            </tbody>
+                            <tbody id="winners-table-body"></tbody>
                         </table>
                     </div>
                 </div>
@@ -442,10 +353,10 @@
         };
 
         const carsData = {
-            sf26: { name: 'SF-26 Scuderia', team: 'Ferrari', color: '#DC0000', img: 'https://pbs.twimg.com/media/GGT-nyMWMAAT7nf.jpg', engine: "Ferrari 067/2", fuel: "Shell Sustainable", aero: "Active Vortex" },
-            vcarb03: { name: 'VCARB 03', team: 'Racing Bulls', color: '#6692ff', img: 'https://www.themanual.com/tachyon/sites/9/2025/02/Red-Bull-Racing-RB21-F1-car-for-the-2025-season-right-front-three-quarter-view.jpg?resize=1200%2C720', engine: "Honda RBP26", fuel: "Sustainable Bio", aero: "Agile Wings" },
-            vf26: { name: 'VF-26 Challenger', team: 'Haas F1', color: '#6c757d', img: 'https://www.f1-fansite.com/wp-content/uploads/2024/02/VF24-KM_6-464.png', engine: "Ferrari 067/2", fuel: "Sustainable Mix", aero: "Modular Platform" },
-            amr26: { name: 'AMR26 Evolution', team: 'Aston Martin', color: '#006F62', img: 'https://media.formula1.com/image/upload/c_lfill,w_2048/q_auto/v1740000000/content/dam/fom-website/manual/Misc/2023manual/Pre-season/February/AMR/AM23_CAR_2548%20TC%2016x9.webp', engine: "Honda RBP26", fuel: "Aramco E-Fuel", aero: "Hyper-Efficiency" },
+            sf26: { name: 'SF-26 Scuderia', team: 'Ferrari', color: '#DC0000', img: 'assets/cars/ferrari.png', engine: "Ferrari 067/2", fuel: "Shell Sustainable", aero: "Active Vortex" },
+            vcarb03: { name: 'VCARB 03', team: 'Racing Bulls', color: '#6692ff', img: 'assets/cars/racing bulls.png', engine: "Honda RBP26", fuel: "Sustainable Bio", aero: "Agile Wings" },
+            vf26: { name: 'VF-26 Challenger', team: 'Haas F1', color: '#6c757d', img: 'assets/cars/hass.png', engine: "Ferrari 067/2", fuel: "Sustainable Mix", aero: "Modular Platform" },
+            amr26: { name: 'AMR26 Evolution', team: 'Aston Martin', color: '#006F62', img: 'assets/cars/aston maritn.png', engine: "Honda RBP26", fuel: "Aramco E-Fuel", aero: "Hyper-Efficiency" },
             a526: { name: 'Alpine A526', team: 'Alpine', color: '#0093cc', img: 'https://www.f1-fansite.com/wp-content/uploads/2024/02/Formula-1-Alpine-A524-2024-season-41.jpg', engine: "Renault RE26", fuel: "Bio-Synthetic", aero: "Active DRS Gen 3" },
             rb22: { name: 'RB22 Oracle', team: 'Red Bull Racing', color: '#0600EF', img: 'https://media.formula1.com/image/upload/t_16by9Centre/f_auto/q_auto/v1768531224/fom-website/2026/Red%20Bull/SI202601150723.jpg', engine: "Red Bull Ford V1", fuel: "Synthetic Max", aero: "Ground Effect Gen-II" },
             au01: { name: 'Audi AU-01', team: 'Audi Factory Team', color: '#f50537', img: 'https://motorsportmagazine.b-cdn.net/wp-content/uploads/2025/11/Audi-F1-2026-car-livery-with-ring-background-scaled.jpg', engine: "Audi Power Unit", fuel: "e-Fuel Zero", aero: "Ingolstadt Aero" },
@@ -592,7 +503,6 @@
             let html = '';
             Object.keys(carsData).forEach((key, idx) => {
                 const item = carsData[key];
-                // Thumbnails without images per request
                 html += `
                     <div class="card" onclick="viewProfile('car', '${key}')" style="z-index: ${20 - idx}">
                         <div class="card-info" style="opacity: 1; background: none;">
